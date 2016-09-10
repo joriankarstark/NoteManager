@@ -1,31 +1,22 @@
-from MenuItem import MenuItem
-from curses import wrapper
-import math
 
-def main(stdscr):
-    """
+class MenuItem:
+    """Element of the main menu"""
 
-    :type stdscr: curses window object
-    """
-
-    m = MenuItem('test', 'test')
-
-    menu = {m}
-
-    # Clear screen
-    stdscr.clear()
-
-    menu_start_height = math.floor((stdscr.getmaxyx()[0] - len(menu))/2)
-
-    for i in range(0, len(menu)):
-        stdscr.addstr(menu_start_height+i, 0, m.title)
+    def __init__(self, title, action):
+        self.title = title
+        self.action = action
+        self.shortcut = []
 
 
-    stdscr.refresh()
-    stdscr.getkey()
+
+class MenuAction:
+    """Action to attach to menu item"""
+
+    action_count = 0;
+
+    def __init__(self):
+        action_count = action_count + 1
 
 
 
 
-
-wrapper(main)
