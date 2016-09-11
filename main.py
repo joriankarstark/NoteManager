@@ -10,9 +10,25 @@ import logging
 _logger = logging.getLogger(__name__)
 
 def configure_logger():
+    """
+    setup basic logger config
+    """
     logging.basicConfig(level=logging.DEBUG,
                         filename="test",
                         format='%(asctime)s:%(levelname)s:%(filename)s:%(lineno)d:%(message)s')
+
+def show_menu(stdscr, menu):
+    """
+    :type stdscr: curses window object
+    """
+
+    menu_start_height = math.floor((stdscr.getmaxyx()[0] - len(menu))/2)
+
+    menu_item_number = 0
+    for menu_item in menu:
+        stdscr.addstr(menu_start_height+menu_item_number, 0, menu_item.title)
+        menu_item_number += 1
+    stdscr.refresh()
 
 def main(stdscr):
     """
@@ -30,8 +46,7 @@ def main(stdscr):
 
     # Clear screen
     stdscr.clear()
-
-    menu_start_height = math.floor((stdscr.getmaxyx()[0] - len(menu))/2)
+    show_menu(stdscr, menu)
 
     while 1:
             c = stdscr.getch()
@@ -41,13 +56,10 @@ def main(stdscr):
             elif c == curses.KEY_HOME:
                 _logger.debug("You hit Home")
             else:
-                for i in range(0, len(menu)):
-                    stdscr.addstr(menu_start_height+i, 0, m.title)
-                stdscr.refresh()
                 _logger.debug("burp")
 
 
-    stdscr.getkey()
+    #stdscr.getkey()
 
 
 
